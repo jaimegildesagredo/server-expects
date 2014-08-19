@@ -1,0 +1,15 @@
+language: python
+
+python:
+    - 2.7
+    - 3.3
+    - 3.4
+    - pypy
+
+install:
+ - python setup.py sdist
+ - pip install dist/server-expects-`python setup.py --version`.tar.gz
+ - pip install -r test-requirements.txt
+
+script:
+ - mamba
