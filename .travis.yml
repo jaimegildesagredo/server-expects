@@ -2,8 +2,6 @@ language: python
 
 install:
  - curl -sSL https://get.docker.io/ubuntu/ | sudo sh
- - sudo gpasswd -a $USER docker
- - sudo service docker restart
 
 script:
- - make test
+ - sudo make test
