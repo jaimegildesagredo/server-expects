@@ -1,4 +1,7 @@
 language: python
 
+install:
+ - curl -sSL https://get.docker.io/ubuntu/ | sudo sh
+
 script:
  - make test
