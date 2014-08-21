@@ -1,2 +1,5 @@
+before_script:
+  - service docker start
+
 script:
- - sudo make test
+   - sudo make test
