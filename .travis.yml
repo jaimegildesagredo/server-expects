@@ -3,8 +3,8 @@ language: python
 before_install:
   - . .test-env.sh
   - sudo apt-get update
-  - sudo apt-get install "${TEST_AN_INSTALLED_PACKAGE_NAME}=${TEST_AN_INSTALLED_PACKAGE_VERSION}"
-  - sudo apt-get remove $TEST_AN_UNINSTALLED_PACKAGE
+  - sudo apt-get install "${TEST_AN_INSTALLED_DEB_NAME}=${TEST_AN_INSTALLED_DEB_VERSION}"
+  - sudo apt-get remove $TEST_AN_UNINSTALLED_DEB
 
 install:
   - python setup.py sdist
