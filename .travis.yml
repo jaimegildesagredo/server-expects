@@ -1,12 +1,9 @@
 language: python
 
-env:
-  global:
-    - TEST_AN_INSTALLED_PACKAGE=python-requests
-    - TEST_AN_UNINSTALLED_PACKAGE=python-django
-
 before_install:
-  - sudo apt-get install $TEST_AN_INSTALLED_PACKAGE
+  - . .test-env.sh
+  - sudo apt-get update
+  - sudo apt-get install "${TEST_AN_INSTALLED_PACKAGE_NAME}=${TEST_AN_INSTALLED_PACKAGE_VERSION}"
   - sudo apt-get remove $TEST_AN_UNINSTALLED_PACKAGE
 
 install:
@@ -15,4 +12,5 @@ install:
   - pip install --upgrade -r test-requirements.txt
 
 script:
+  - . .test-env.sh
   - mamba

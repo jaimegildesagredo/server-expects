@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:12.04
 
 MAINTAINER Jaime Gil de Sagredo <jaimegildesagredo@gmail.com>
 
@@ -8,7 +8,7 @@ RUN apt-get update && \
 ADD . /src
 
 RUN . /src/.test-env.sh && \
-    apt-get install -y $TEST_AN_INSTALLED_PACKAGE && \
+    apt-get install -y $TEST_AN_INSTALLED_PACKAGE_NAME=$TEST_AN_INSTALLED_PACKAGE_VERSION && \
     apt-get remove -y $TEST_AN_UNINSTALLED_PACKAGE
 
 RUN cd /src && \
