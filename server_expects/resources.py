@@ -53,7 +53,7 @@ class egg(object):
 
     @property
     def is_installed(self):
-        output = _run(['pip', 'freeze'])
+        output = _run(['/usr/bin/pip', 'freeze'])
 
         for line in output.splitlines():
             if self.name in line:
