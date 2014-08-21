@@ -55,7 +55,7 @@ To run the specs you should install the testing requirements and then run ``mamb
 .. code-block:: bash
 
     $ python setup.py develop
-    $ pip install -r test-requirements.txt
+    $ pip install --upgrade -r test-requirements.txt
     $ mamba
 
 License
