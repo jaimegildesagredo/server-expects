@@ -7,15 +7,13 @@ RUN apt-get update && \
 
 ADD . /src
 
-RUN . /src/.test-env.sh && \
-    apt-get install -y $TEST_AN_INSTALLED_DEB_NAME=$TEST_AN_INSTALLED_DEB_VERSION && \
-    apt-get remove -y $TEST_AN_UNINSTALLED_DEB
+RUN /src/dev/test-provision.sh
 
 RUN cd /src && \
     python setup.py sdist && \
     pip install dist/server-expects-`python setup.py --version`.tar.gz &&\
     pip install --upgrade -r test-requirements.txt
 
-RUN . /src/.test-env.sh && \
+RUN . /src/dev/test-environment.sh && \
     cd /src && \
     mamba

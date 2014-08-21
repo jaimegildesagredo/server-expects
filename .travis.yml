@@ -1,10 +1,8 @@
 language: python
 
 before_install:
-  - . .test-env.sh
   - sudo apt-get update
-  - sudo apt-get install "${TEST_AN_INSTALLED_DEB_NAME}=${TEST_AN_INSTALLED_DEB_VERSION}"
-  - sudo apt-get remove $TEST_AN_UNINSTALLED_DEB
+  - sudo ./dev/test-provision.sh
 
 install:
   - python setup.py sdist
@@ -12,5 +10,5 @@ install:
   - pip install --upgrade -r test-requirements.txt
 
 script:
-  - . .test-env.sh
+  - . dev/test-environment.sh
   - mamba

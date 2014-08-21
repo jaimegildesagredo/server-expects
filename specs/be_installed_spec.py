@@ -39,3 +39,11 @@ with describe('be_installed'):
             with failure('but {!r} version is installed'.format(c.AN_INSTALLED_DEB_VERSION)):
                 expect(deb(c.AN_INSTALLED_DEB_NAME,
                            c.AN_UNINSTALLED_DEB_VERSION)).to(be_installed)
+
+    with context('egg package'):
+        with it('passes if package is installed'):
+            expect(egg(c.AN_INSTALLED_EGG_NAME)).to(be_installed)
+
+        with it('fails if package is not installed'):
+            with failure:
+                expect(egg(c.AN_UNINSTALLED_EGG)).to(be_installed)

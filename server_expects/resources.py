@@ -45,7 +45,22 @@ class deb(object):
 
         return env
 
+
+class egg(object):
+    def __init__(self, name):
+        self.name = name
+        self.version = None
+
+    @property
+    def is_installed(self):
+        output = _run(['pip', 'freeze'])
+
+        for line in output.splitlines():
+            if self.name in line:
+                return True
+        return False
+
 def _run(*args, **kwargs):
     return subprocess.check_output(*args, **kwargs)
 
-__all__ = ['deb']
+__all__ = ['deb', 'egg']
