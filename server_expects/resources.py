@@ -53,12 +53,20 @@ class egg(object):
 
     @property
     def is_installed(self):
-        output = _run(['/usr/bin/pip', 'freeze'])
+        output = _run([self._pip, 'freeze'])
 
         for line in output.splitlines():
             if self.name in line:
                 return True
         return False
+
+    @property
+    def _pip(self):
+        for path in ('/usr/local/bin/pip', '/usr/bin/pip'):
+            if os.path.exists(path):
+                break
+
+        return path
 
 def _run(*args, **kwargs):
     return subprocess.check_output(*args, **kwargs)
