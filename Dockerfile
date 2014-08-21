@@ -5,8 +5,8 @@ MAINTAINER Jaime Gil de Sagredo <jaimegildesagredo@gmail.com>
 RUN apt-get update && \
     apt-get install -y python python-pip git
 
-RUN apt-get install -y python-requests && \
-    apt-get remove -y python-django
+RUN apt-get install -y $TEST_AN_INSTALLED_PACKAGE && \
+    apt-get remove -y $TEST_AN_UNINSTALLED_PACKAGE
 
 ADD . /src
 
