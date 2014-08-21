@@ -1,0 +1,2 @@
+export TEST_AN_INSTALLED_PACKAGE=python-requests
+export TEST_AN_UNINSTALLED_PACKAGE=python-django

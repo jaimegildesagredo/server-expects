@@ -1,2 +1,0 @@
-TEST_AN_INSTALLED_PACKAGE=python-requests
-TEST_AN_UNINSTALLED_PACKAGE=python-django
