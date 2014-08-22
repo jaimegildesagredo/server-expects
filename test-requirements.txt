@@ -1,2 +1,2 @@
-git+git://github.com/jaimegildesagredo/mamba.git@fix-expects-build-258#egg=mamba
-git+git://github.com/jaimegildesagredo/expects.git#egg=expects
+-e git+git://github.com/jaimegildesagredo/mamba.git@fix-expects-build-258#egg=mamba
+-e git+git://github.com/jaimegildesagredo/expects.git#egg=expects

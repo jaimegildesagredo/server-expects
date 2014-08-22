@@ -1,14 +1,11 @@
 language: python
 
 before_install:
-  - sudo apt-get update
-  - sudo ./dev/test-provision.sh
+  - sudo ./dev/travis.sh
+  - sudo ./dev/provision.sh
 
 install:
-  - python setup.py sdist
-  - pip install dist/`python setup.py --name`-`python setup.py --version`.tar.gz
-  - pip install --upgrade -r test-requirements.txt
+  - ./dev/install.sh
 
 script:
-  - . dev/test-environment.sh
-  - mamba
+  - ./dev/tests.sh

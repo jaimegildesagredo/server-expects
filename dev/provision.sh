@@ -1,6 +1,12 @@
 #!/bin/bash -e
 
-source `dirname $0`/test-environment.sh
+# FIXME: ...
+if [[ -d /vagrant ]];
+then
+    . /vagrant/dev/environment.sh
+else
+    . `dirname $0`/environment.sh
+fi
 
 apt-get install -y $TEST_AN_INSTALLED_DEB_NAME=$TEST_AN_INSTALLED_DEB_VERSION
 apt-get remove -y $TEST_AN_UNINSTALLED_DEB

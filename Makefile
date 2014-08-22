@@ -1,2 +1,2 @@
 test:
-	docker build --rm -t server_expects_tests .
+	vagrant ssh -c '/vagrant/dev/vagrant-tests.sh'
