@@ -3,7 +3,8 @@
 VENV=$HOME/venv
 SOURCE=$HOME/src
 
-virtualenv $HOME/venv
+rm -rf $VENV
+virtualenv $VENV
 . $VENV/bin/activate
 
 mkdir -p $SOURCE

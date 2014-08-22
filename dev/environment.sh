@@ -6,3 +6,5 @@ export TEST_AN_INSTALLED_EGG_NAME=requests
 export TEST_AN_INSTALLED_EGG_VERSION=1.0.1
 export TEST_AN_UNINSTALLED_EGG_VERSION=2.0.1
 export TEST_AN_UNINSTALLED_EGG=django
+export TEST_AN_INSTALLED_EDITABLE_EGG_NAME=flask
+export TEST_AN_INSTALLED_EDITABLE_EGG_URL=git+https://github.com/mitsuhiko/flask.git#egg=flask
