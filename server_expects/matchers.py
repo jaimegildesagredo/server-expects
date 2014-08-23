@@ -13,6 +13,9 @@ class _be_installed(Matcher):
         if package.version is not None:
             message = 'but {!r} version is installed'.format(package.current_version)
 
+        if hasattr(package, 'failure_message'):
+            message += package.failure_message
+
         return message
 
 

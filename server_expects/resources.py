@@ -47,10 +47,15 @@ class deb(object):
 
 
 class egg(object):
-    def __init__(self, name, version=None):
+    def __init__(self, name, version=None, virtualenv=None):
         self.name = name
         self.version = version
+        self.virtualenv = virtualenv
         self._cache = {}
+
+    def __repr__(self):
+        return 'egg(name={}, version={}, virtualenv={})'.format(
+            self.name, self.version, self.virtualenv)
 
     @property
     def is_installed(self):
@@ -75,14 +80,20 @@ class egg(object):
 
     @property
     def _installed(self):
-        output = _run([self._pip, 'freeze'])
-
-        for line in output.splitlines():
-            if not line.startswith('#'):
-                yield self._parse_requirement(line)
+        try:
+            output = _run([self._pip, 'freeze'])
+        except OSError:
+            self.failure_message = ' but {} not found'.format(self._pip)
+        else:
+            for line in output.splitlines():
+                if not line.startswith('#'):
+                    yield self._parse_requirement(line)
 
     @property
     def _pip(self):
+        if self.virtualenv is not None:
+            return os.path.join(self.virtualenv, 'bin', 'pip')
+
         for path in ('/usr/local/bin/pip', '/usr/bin/pip'):
             if os.path.exists(path):
                 break

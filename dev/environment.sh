@@ -8,3 +8,7 @@ export TEST_AN_UNINSTALLED_EGG_VERSION=2.0.1
 export TEST_AN_UNINSTALLED_EGG=django
 export TEST_AN_INSTALLED_EDITABLE_EGG_NAME=flask
 export TEST_AN_INSTALLED_EDITABLE_EGG_URL=git+https://github.com/mitsuhiko/flask.git#egg=flask
+export TEST_A_VIRTUALENV_INSTALLED_EGG=tornado
+export TEST_A_VIRTUALENV_UNINSTALLED_EGG=sqlalchemy
+export TEST_A_VIRTUALENV_PATH=/opt/venv
+export TEST_A_NONEXISTENT_VIRTUALENV_PATH=/opt/nonexistent-venv
