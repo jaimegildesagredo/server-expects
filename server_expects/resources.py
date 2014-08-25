@@ -105,7 +105,7 @@ class egg(object):
         return path
 
     def _parse_requirement(self, line):
-        if '-e' in line:
+        if line.startswith('-e'):
             name, version = line.split('#egg=')[1].split('-', 1)
         else:
             name, version = line.split('==')
