@@ -113,6 +113,8 @@ class egg(object):
         return name.lower(), version
 
 def _run(*args, **kwargs):
+    kwargs.setdefault('stderr', open(os.devnull, 'w'))
+
     return subprocess.check_output(*args, **kwargs)
 
 __all__ = ['package', 'deb', 'egg']
