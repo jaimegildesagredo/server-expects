@@ -9,6 +9,7 @@ virtualenv $VENV
 
 mkdir -p $SOURCE
 cp -R /vagrant/* $SOURCE
+chown -R vagrant:vagrant $SOURCE
 
 cd $SOURCE
 
