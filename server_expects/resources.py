@@ -5,6 +5,10 @@ import re
 import subprocess
 
 
+def package(*args, **kwargs):
+    return deb(*args, **kwargs)
+
+
 class deb(object):
     def __init__(self, name, version=None):
         self.name = name
@@ -111,4 +115,4 @@ class egg(object):
 def _run(*args, **kwargs):
     return subprocess.check_output(*args, **kwargs)
 
-__all__ = ['deb', 'egg']
+__all__ = ['package', 'deb', 'egg']
