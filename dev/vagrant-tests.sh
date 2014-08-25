@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
-VENV=$HOME/venv
-SOURCE=$HOME/src
+VENV=$HOME/server-expects-venv
+SOURCE=$HOME/server-expects-src
 
 rm -rf $VENV
 virtualenv $VENV
