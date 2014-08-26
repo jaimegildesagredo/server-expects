@@ -15,6 +15,10 @@ class deb(object):
         self.version = version
         self._cache = {}
 
+    def __repr__(self):
+        return 'deb(name={}, version={})'.format(
+            self.name, self.version)
+
     @property
     def is_installed(self):
         if self.current_version is None:
@@ -116,6 +120,9 @@ class egg(object):
 class host(object):
     def __init__(self, name):
         self.name = name
+
+    def __repr__(self):
+        return 'host(name={})'.format(self.name)
 
     @property
     def is_reachable(self):
