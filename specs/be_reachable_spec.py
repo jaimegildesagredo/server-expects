@@ -30,6 +30,18 @@ with describe('be_reachable'):
         with failure:
             expect(c.AN_UNREACHABLE_IP).to(be_reachable)
 
+    with it('passes if host is reachable'):
+        expect(c.A_REACHABLE_HOST).to(be_reachable)
+
+    with it('fails if host is not reachable'):
+        with failure:
+            expect(c.AN_UNREACHABLE_HOST).to(be_reachable)
+
+    # TODO: Must find a way to pass this example
+    with _it('fails if host cannot be resolved'):
+        with failure('but cannot resolve name'):
+            expect(c.AN_UNRESOLVABLE_HOST).to(be_reachable)
+
     with describe('host'):
         with it('passes if ip is reachable'):
             expect(host(c.A_REACHABLE_IP)).to(be_reachable)
@@ -37,3 +49,14 @@ with describe('be_reachable'):
         with it('fails if ip is not reachable'):
             with failure:
                 expect(host(c.AN_UNREACHABLE_IP)).to(be_reachable)
+
+        with it('passes if host is reachable'):
+            expect(host(c.A_REACHABLE_HOST)).to(be_reachable)
+
+        with it('fails if host is not reachable'):
+            with failure:
+                expect(host(c.AN_UNREACHABLE_HOST)).to(be_reachable)
+
+        with it('fails if host cannot be resolved'):
+            with failure('but cannot resolve name'):
+                expect(host(c.AN_UNRESOLVABLE_HOST)).to(be_reachable)

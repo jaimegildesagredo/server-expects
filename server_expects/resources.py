@@ -122,7 +122,10 @@ class host(object):
         try:
             _run(['ping', '-w', '2', '-c', '2', self.name])
             return True
-        except:
+        except subprocess.CalledProcessError as error:
+            if error.returncode == 2:
+                self.failure_message = ' but cannot resolve name'
+
             return False
 
 

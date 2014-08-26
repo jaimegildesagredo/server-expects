@@ -42,6 +42,16 @@ class _be_reachable(Matcher):
 
         return host_resource(host)
 
+    def _description(self, host):
+        host = self._resource_for(host)
+
+        message = super(_be_reachable, self)._description(host)
+
+        if hasattr(host, 'failure_message'):
+            message += host.failure_message
+
+        return message
+
 be_installed = _be_installed()
 be_reachable = _be_reachable()
 
