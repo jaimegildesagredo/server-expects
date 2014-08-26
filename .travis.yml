@@ -1,5 +1,11 @@
 language: python
 
+python:
+  - 2.7
+  - 3.3
+  - 3.4
+  - pypy
+
 before_install:
   - sudo ./dev/travis.sh
   - sudo ./dev/provision.sh
