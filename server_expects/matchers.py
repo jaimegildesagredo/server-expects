@@ -2,7 +2,10 @@
 
 from expects.matchers import Matcher
 
-from .resources import package as package_resource
+from .resources import (
+    package as package_resource,
+    host as host_resource
+)
 
 
 class _be_installed(Matcher):
@@ -29,6 +32,17 @@ class _be_installed(Matcher):
         return message
 
 
-be_installed = _be_installed()
+class _be_reachable(Matcher):
+    def _match(self, host):
+        return self._resource_for(host).is_reachable
 
-__all__ = ['be_installed']
+    def _resource_for(self, host):
+        if hasattr(host, 'is_reachable'):
+            return host
+
+        return host_resource(host)
+
+be_installed = _be_installed()
+be_reachable = _be_reachable()
+
+__all__ = ['be_installed', 'be_reachable']

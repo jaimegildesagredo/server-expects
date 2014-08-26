@@ -112,9 +112,23 @@ class egg(object):
 
         return name.lower(), version
 
+
+class host(object):
+    def __init__(self, name):
+        self.name = name
+
+    @property
+    def is_reachable(self):
+        try:
+            _run(['ping', '-w', '2', '-c', '2', self.name])
+            return True
+        except:
+            return False
+
+
 def _run(*args, **kwargs):
     kwargs.setdefault('stderr', open(os.devnull, 'w'))
 
     return subprocess.check_output(*args, **kwargs)
 
-__all__ = ['package', 'deb', 'egg']
+__all__ = ['package', 'deb', 'egg', 'host']
