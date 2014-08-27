@@ -129,7 +129,7 @@ class host(object):
     def is_reachable(self):
         try:
             _run(['ping', '-w', '2', '-c', '2', self.name])
-        except subprocess.CalledProcessError as error:
+        except subprocess.CalledProcessError:
             return False
 
         return True
