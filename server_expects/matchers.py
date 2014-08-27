@@ -47,8 +47,8 @@ class _be_reachable(Matcher):
 
         message = super(_be_reachable, self)._description(host)
 
-        if hasattr(host, 'failure_message'):
-            message += host.failure_message
+        if not host.is_resolvable:
+            message += ' but cannot be resolved'
 
         return message
 

@@ -2,6 +2,7 @@
 
 import os
 import re
+import socket
 import subprocess
 
 
@@ -128,12 +129,20 @@ class host(object):
     def is_reachable(self):
         try:
             _run(['ping', '-w', '2', '-c', '2', self.name])
-            return True
         except subprocess.CalledProcessError as error:
-            if error.returncode == 2:
-                self.failure_message = ' but cannot resolve name'
-
             return False
+
+        return True
+
+    @property
+    def is_resolvable(self):
+        try:
+            socket.getaddrinfo(self.name, None)
+        except socket.gaierror as e:
+            if e.errno == socket.EAI_NONAME:
+                return False
+
+        return True
 
 
 def _run(*args, **kwargs):
