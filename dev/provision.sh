@@ -8,6 +8,8 @@ else
     . `dirname $0`/environment.sh
 fi
 
+export DEBIAN_FRONTEND=noninteractive
+
 apt-get install -y $TEST_AN_INSTALLED_DEB_NAME=$TEST_AN_INSTALLED_DEB_VERSION
 apt-get remove -y $TEST_AN_UNINSTALLED_DEB
 
@@ -22,3 +24,6 @@ $TEST_A_VIRTUALENV_PATH/bin/pip uninstall -y $TEST_A_VIRTUALENV_UNINSTALLED_EGG 
 rm -rf $TEST_A_NONEXISTENT_VIRTUALENV_PATH
 
 echo "$TEST_AN_UNREACHABLE_IP $TEST_AN_UNREACHABLE_HOST" >> /etc/hosts
+
+apt-get install -y mysql-server
+mysql -e "CREATE USER '$TEST_A_MYSQL_EXISTENT_USER' IDENTIFIED BY '$TEST_A_MYSQL_VALID_PASSWORD'"

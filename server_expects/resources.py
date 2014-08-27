@@ -17,7 +17,7 @@ class deb(object):
         self._cache = {}
 
     def __repr__(self):
-        return 'deb(name={}, version={})'.format(
+        return 'deb(name={!r}, version={!r})'.format(
             self.name, self.version)
 
     @property
@@ -63,7 +63,7 @@ class egg(object):
         self._cache = {}
 
     def __repr__(self):
-        return 'egg(name={}, version={}, virtualenv={})'.format(
+        return 'egg(name={!r}, version={!r}, virtualenv={!r})'.format(
             self.name, self.version, self.virtualenv)
 
     @property
@@ -123,7 +123,7 @@ class host(object):
         self.name = name
 
     def __repr__(self):
-        return 'host(name={})'.format(self.name)
+        return 'host(name={!r})'.format(self.name)
 
     @property
     def is_reachable(self):
@@ -145,9 +145,39 @@ class host(object):
         return True
 
 
+class mysql(object):
+    def __init__(self, host, port=3306, user='root', password=''):
+        self.host = host
+        self.port = port
+        self.user = user
+        self.password = password
+
+    def __repr__(self):
+        return 'mysql(host={!r}, port={!r}, user={!r}, password={!r})'.format(
+            self.host, self.port, self.user, self.password)
+
+    @property
+    def is_accessible(self):
+        return self._connection is not None
+
+    @property
+    def _connection(self):
+        import pymysql
+
+        try:
+            return pymysql.connect(
+                host=self.host,
+                port=self.port,
+                user=self.user,
+                passwd=self.password)
+
+        except pymysql.OperationalError as e:
+            pass
+
+
 def _run(*args, **kwargs):
     kwargs.setdefault('stderr', open(os.devnull, 'w'))
 
     return subprocess.check_output(*args, **kwargs)
 
-__all__ = ['package', 'deb', 'egg', 'host']
+__all__ = ['package', 'deb', 'egg', 'host', 'mysql']

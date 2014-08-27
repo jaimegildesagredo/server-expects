@@ -52,7 +52,13 @@ class _be_reachable(Matcher):
 
         return message
 
+
+class _be_accessible(Matcher):
+    def _match(self, instance):
+        return instance.is_accessible
+
 be_installed = _be_installed()
 be_reachable = _be_reachable()
+be_accessible = _be_accessible()
 
-__all__ = ['be_installed', 'be_reachable']
+__all__ = ['be_installed', 'be_reachable', 'be_accessible']
