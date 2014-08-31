@@ -24,14 +24,14 @@ c = Constants('TEST')
 
 with describe('be_accessible'):
     with describe('mysql'):
-        with it('passes if is accessible by root without password'):
+        with it('passes if instance is accessible by root without password'):
             expect(mysql(c.A_MYSQL_LISTENING_HOST)).to(be_accessible)
 
-        with it('passes if is accessible by root without password on port'):
+        with it('passes if instance is accessible by root without password on port'):
             expect(mysql(c.A_MYSQL_LISTENING_HOST,
                          port=int(c.A_MYSQL_LISTENING_PORT))).to(be_accessible)
 
-        with it('passes if is accessible by user and password'):
+        with it('passes if instance is accessible by user and password'):
             expect(mysql(c.A_MYSQL_LISTENING_HOST,
                          user=c.A_MYSQL_EXISTENT_USER,
                          password=c.A_MYSQL_VALID_PASSWORD)).to(be_accessible)
@@ -42,21 +42,21 @@ with describe('be_accessible'):
                          password=c.A_MYSQL_VALID_PASSWORD,
                          database=c.A_MYSQL_EXISTENT_DATABASE)).to(be_accessible)
 
-        with it('fails if is not listening on specified host'):
+        with it('fails if instance is not listening on specified host'):
             with failure:
                 expect(mysql(c.A_MYSQL_NOT_LISTENING_HOST)).to(be_accessible)
 
-        with it('fails if is not listening on specified port'):
+        with it('fails if instance is not listening on specified port'):
             with failure:
                 expect(mysql(c.A_MYSQL_LISTENING_HOST,
                              port=int(c.A_MYSQL_NOT_LISTENING_PORT))).to(be_accessible)
 
-        with it('fails if is not accessible by user'):
+        with it('fails if instance is not accessible by user'):
             with failure:
                 expect(mysql(c.A_MYSQL_LISTENING_HOST,
                              user=c.A_MYSQL_NONEXISTENT_USER)).to(be_accessible)
 
-        with it('fails if is not accessible by user and password'):
+        with it('fails if instance is not accessible by user and password'):
             with failure:
                 expect(mysql(c.A_MYSQL_LISTENING_HOST,
                              user=c.A_MYSQL_EXISTENT_USER,
