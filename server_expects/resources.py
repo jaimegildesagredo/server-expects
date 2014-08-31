@@ -146,15 +146,16 @@ class host(object):
 
 
 class mysql(object):
-    def __init__(self, host, port=3306, user='root', password=''):
+    def __init__(self, host, port=3306, user='root', password='', database=None):
         self.host = host
         self.port = port
         self.user = user
         self.password = password
+        self.database = database
 
     def __repr__(self):
-        return 'mysql(host={!r}, port={!r}, user={!r}, password={!r})'.format(
-            self.host, self.port, self.user, self.password)
+        return 'mysql(host={!r}, port={!r}, user={!r}, password={!r}, database={!r})'.format(
+            self.host, self.port, self.user, self.password, self.database)
 
     @property
     def is_accessible(self):
@@ -169,9 +170,10 @@ class mysql(object):
                 host=self.host,
                 port=self.port,
                 user=self.user,
-                passwd=self.password)
+                passwd=self.password,
+                db=self.database)
 
-        except pymysql.OperationalError as e:
+        except pymysql.OperationalError:
             pass
 
 

@@ -27,14 +27,20 @@ with describe('be_accessible'):
         with it('passes if is accessible by root without password'):
             expect(mysql(c.A_MYSQL_LISTENING_HOST)).to(be_accessible)
 
-        with it('passes if is accessible by root without password on specified port'):
+        with it('passes if is accessible by root without password on port'):
             expect(mysql(c.A_MYSQL_LISTENING_HOST,
                          port=int(c.A_MYSQL_LISTENING_PORT))).to(be_accessible)
 
-        with it('passes if is accessible by specified user and password'):
+        with it('passes if is accessible by user and password'):
             expect(mysql(c.A_MYSQL_LISTENING_HOST,
                          user=c.A_MYSQL_EXISTENT_USER,
                          password=c.A_MYSQL_VALID_PASSWORD)).to(be_accessible)
+
+        with it('passes if database is accessible by user and password'):
+            expect(mysql(c.A_MYSQL_LISTENING_HOST,
+                         user=c.A_MYSQL_EXISTENT_USER,
+                         password=c.A_MYSQL_VALID_PASSWORD,
+                         database=c.A_MYSQL_EXISTENT_DATABASE)).to(be_accessible)
 
         with it('fails if is not listening on specified host'):
             with failure:
@@ -45,13 +51,27 @@ with describe('be_accessible'):
                 expect(mysql(c.A_MYSQL_LISTENING_HOST,
                              port=int(c.A_MYSQL_NOT_LISTENING_PORT))).to(be_accessible)
 
-        with it('fails if is not accessible by specified user'):
+        with it('fails if is not accessible by user'):
             with failure:
                 expect(mysql(c.A_MYSQL_LISTENING_HOST,
-                             user=c.A_MYSQL_UNEXISTENT_USER)).to(be_accessible)
+                             user=c.A_MYSQL_NONEXISTENT_USER)).to(be_accessible)
 
-        with it('fails if is not accessible by specified user and password'):
+        with it('fails if is not accessible by user and password'):
             with failure:
                 expect(mysql(c.A_MYSQL_LISTENING_HOST,
                              user=c.A_MYSQL_EXISTENT_USER,
                              password=c.A_MYSQL_INVALID_PASSWORD)).to(be_accessible)
+
+        with it('fails if database does not exist'):
+            with failure:
+                expect(mysql(c.A_MYSQL_LISTENING_HOST,
+                             user=c.A_MYSQL_EXISTENT_USER,
+                             password=c.A_MYSQL_VALID_PASSWORD,
+                             database=c.A_MYSQL_NONEXISTENT_DATABASE)).to(be_accessible)
+
+        with it('fails if database is not accessible by user and password'):
+            with failure:
+                expect(mysql(c.A_MYSQL_LISTENING_HOST,
+                             user=c.A_MYSQL_NONEXISTENT_USER,
+                             password=c.A_MYSQL_VALID_PASSWORD,
+                             database=c.A_MYSQL_EXISTENT_DATABASE)).to(be_accessible)
