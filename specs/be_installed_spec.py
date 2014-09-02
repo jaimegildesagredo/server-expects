@@ -14,9 +14,15 @@ class Constants(object):
 
     def __getattr__(self, name):
         try:
-            return unicode(os.environ[self._prefix + '_' + name])
+            value = os.environ[self._prefix + '_' + name])
         except KeyError:
             raise AttributeError(name)
+
+        # TODO: Extract to _compat module.
+        if hasattr(value, 'decode'):
+            value = value.decode('ascii')
+ 
+        return value
 
 
 c = Constants('TEST')
