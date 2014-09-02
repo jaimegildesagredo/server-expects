@@ -37,7 +37,7 @@ class deb(object):
         return self._cache['current_version']
 
     def _get_current_version(self):
-        output = _run(['apt-cache', 'policy', self.name], env=self.__apt_env)
+        output = _run(['apt-cache', 'policy', self.name])
 
         match = re.search('Installed: (?P<version>.+)', output)
 
@@ -46,13 +46,6 @@ class deb(object):
 
             if version != '(none)':
                 return version
-
-    @property
-    def __apt_env(self):
-        env = dict(os.environ)
-        env['LANG'] = 'C'
-
-        return env
 
 
 class egg(object):
@@ -177,9 +170,14 @@ class mysql(object):
             pass
 
 
-def _run(*args, **kwargs):
-    kwargs.setdefault('stderr', open(os.devnull, 'w'))
+def _run(*args):
+    env = dict(os.environ)
+    env['LANG'] = 'C'
 
-    return subprocess.check_output(*args, **kwargs)
+    kwargs = {
+        'stderr': open(os.devnull, 'w'),
+        'env': env
+    }
+    return subprocess.check_output(*args, **kwargs).decode('ascii')
 
 __all__ = ['package', 'deb', 'egg', 'host', 'mysql']
