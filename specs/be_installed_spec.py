@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import unicode_literals
-
 import os
 
 from expects import expect
@@ -16,7 +14,7 @@ class Constants(object):
 
     def __getattr__(self, name):
         try:
-            return os.environ[self._prefix + '_' + name]
+            return unicode(os.environ[self._prefix + '_' + name])
         except KeyError:
             raise AttributeError(name)
 
