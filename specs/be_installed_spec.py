@@ -14,7 +14,7 @@ class Constants(object):
 
     def __getattr__(self, name):
         try:
-            value = os.environ[self._prefix + '_' + name])
+            value = os.environ[self._prefix + '_' + name]
         except KeyError:
             raise AttributeError(name)
 
