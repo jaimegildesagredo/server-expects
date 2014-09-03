@@ -18,10 +18,9 @@ class Constants(object):
         except KeyError:
             raise AttributeError(name)
 
-        # TODO: Extract to _compat module.
-        if hasattr(value, 'decode'):
+        if isinstance(value, bytes):
             value = value.decode('ascii')
- 
+
         return value
 
 
