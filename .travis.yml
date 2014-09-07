@@ -2,20 +2,18 @@ install:
   - sudo pip install awscli
   - gem install test-kitchen kitchen-ec2
 
-before_script:
-  - ssh-keygen -q -b 2048 -t rsa -f $AWS_SSH_KEY_PATH -N ''
-  - aws ec2 import-key-pair --key-name $AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER --public-key-material "`cat $AWS_SSH_KEY_PATH.pub`"
-
 script:
-  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER make test
+  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER make ec2_test
 
 after_script:
-  - make destroy
-  - aws ec2 delete-key-pair --key-name $AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER
+  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER make ec2_destroy
 
 env:
+  matrix:
+    - KITCHEN_INSTANCE=ubuntu-1204
+    - KITCHEN_INSTANCE=ubuntu-1404
+
   global:
-    - KITCHEN_YAML=.kitchen.cloud.yml
     - secure: "rwO0iDEtJSyrTvPCK8AhFtssy7WIYVlYQGbHhRXRaqMYjrc+VLEnOE0TFV5Mmn5naLX74eWoqtGd71+s6pgkfeCe1AgcIeenScNK2GkmvXoDwHi3khCTMf12RRHI12+6nwBitbFXsmKx077fV9Sz4yhLVfanwT+CSKf0hvcefz0="
     - secure: "gx4e9RwbiqH9VyQqIB4RswIjQjJtt6KpkO/ZTn96U+3AuPihnsIqjz4AZA+tweXZuk3lBruRBxADQbZVrNM+hHCLmI8lWIj2cSFcOyaiSP2eKJyBnQA8fDD4ouWKHdGO3qukVCFcn7D/O/k09wqhmThjkDbfQ7dhVrVVdqqTtjY="
     - secure: "LfDv1ebst4qau35gDCAOdEF6b0xqxjDs54OHhnBQh4bL7lPJiy5pTqIj03qyQAmX5vaVx7lsqfU2ir1NCS3Pq7kPBNKpXuCfJceT7ynZAE0LVdUolzjAG+nsblmuCMdx9IllbMDUr4KKEx5aMtVn9/Y/JiCmS2D1d0P/TsmOju4="

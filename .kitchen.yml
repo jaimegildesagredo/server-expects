@@ -13,5 +13,9 @@ platforms:
     driver:
       box: ubuntu/precise64
 
+  - name: ubuntu-14.04
+    driver:
+      box: ubuntu/trusty64
+
 suites:
   - name: default

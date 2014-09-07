@@ -20,6 +20,10 @@ busser:
 
 platforms:
   - name: ubuntu-12.04
+  - name: ubuntu-14.04
+    driver:
+      image_id: ami-3907d64e
+      username: ubuntu
 
 suites:
   - name: default
