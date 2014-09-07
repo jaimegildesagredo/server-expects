@@ -1,0 +1,25 @@
+---
+driver:
+  name: ec2
+
+driver_config:
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  aws_ssh_key_id: <%= ENV['AWS_SSH_KEY_ID'] %>
+  ssh_key: <%= ENV['AWS_SSH_KEY_PATH'] %>
+  region: <%= ENV['AWS_DEFAULT_REGION'] %>
+  availability_zone: <%= ENV['AWS_AVAILABILITY_ZONE'] %>
+  security_group_ids:
+    - <%= ENV['AWS_SECURITY_GROUP_ID'] %>
+
+provisioner:
+  name: shell
+
+busser:
+  ruby_bindir: /usr/bin
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: default

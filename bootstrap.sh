@@ -1,14 +1,16 @@
 #!/bin/bash -e
 
-# FIXME: ...
-if [[ -d /vagrant ]];
-then
-    . /vagrant/dev/environment.sh
-else
-    . `dirname $0`/environment.sh
-fi
-
 export DEBIAN_FRONTEND=noninteractive
+
+apt-get update
+apt-get update
+apt-get remove -y ruby1.8
+apt-get install -y python python-virtualenv git ruby1.9.1-full
+
+pip install `dirname $0`/data/server-expects.tar.gz
+
+cat `dirname $0`/data/environment.sh > /etc/bash.bashrc
+. `dirname $0`/data/environment.sh
 
 apt-get install -y $TEST_AN_INSTALLED_DEB_NAME=$TEST_AN_INSTALLED_DEB_VERSION
 apt-get remove -y $TEST_AN_UNINSTALLED_DEB

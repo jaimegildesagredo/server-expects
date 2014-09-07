@@ -8,3 +8,6 @@ docs/_build/
 .tox/
 src/
 .vagrant/
+.kitchen/
+data/server-expects.tar.gz
+.aws-credentials.sh
