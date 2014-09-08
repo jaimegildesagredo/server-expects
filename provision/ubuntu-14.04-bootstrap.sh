@@ -6,10 +6,15 @@ apt-get update
 apt-get update
 apt-get remove -y ruby1.8
 apt-get install -y python python-virtualenv git ruby1.9.1-full
+easy_install pip
 
-pip install `dirname $0`/server-expects.tar.gz
+# Fix busser crash with default ruby symlink in 14.04
+rm -f /usr/bin/ruby
+ln -s /usr/bin/ruby1.9.1 /usr/bin/ruby
 
-cat `dirname $0`/ubuntu-12.04-environment.sh > /etc/bash.bashrc
+pip install `dirname $0`/data/server-expects.tar.gz
+
+cat `dirname $0`/data/ubuntu-14.04-environment.sh > /etc/bash.bashrc
 . /etc/bash.bashrc
 
 apt-get install -y $TEST_AN_INSTALLED_DEB_NAME=$TEST_AN_INSTALLED_DEB_VERSION

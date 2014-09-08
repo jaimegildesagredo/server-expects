@@ -4,6 +4,7 @@ driver:
 
 provisioner:
   name: shell
+  data_path: provision/data
 
 busser:
   ruby_bindir: /usr/bin
@@ -12,10 +13,14 @@ platforms:
   - name: ubuntu-12.04
     driver:
       box: ubuntu/precise64
+    provisioner:
+      script: provision/ubuntu-12.04-bootstrap.sh
 
   - name: ubuntu-14.04
     driver:
       box: ubuntu/trusty64
+    provisioner:
+      script: provision/ubuntu-14.04-bootstrap.sh
 
 suites:
   - name: default

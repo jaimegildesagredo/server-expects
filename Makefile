@@ -1,7 +1,7 @@
 NAME = $(shell python setup.py --name)
 VERSION = $(shell python setup.py --version)
 DIST = dist/$(NAME)-$(VERSION).tar.gz
-TEST_DIST = data/$(NAME).tar.gz
+TEST_DIST = provision/data/$(NAME).tar.gz
 
 test: sdist
 	cp $(DIST) $(TEST_DIST)

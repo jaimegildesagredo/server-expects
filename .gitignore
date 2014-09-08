@@ -9,5 +9,5 @@ docs/_build/
 src/
 .vagrant/
 .kitchen/
-data/server-expects.tar.gz
+provision/data/server-expects.tar.gz
 .aws-credentials.sh
