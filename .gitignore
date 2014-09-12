@@ -11,3 +11,4 @@ src/
 .kitchen/
 provision/data/server-expects.tar.gz
 .aws-credentials.sh
+Gemfile.lock

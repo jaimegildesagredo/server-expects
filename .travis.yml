@@ -1,12 +1,12 @@
 install:
   - sudo pip install awscli
-  - gem install test-kitchen kitchen-ec2
+  - gem install kitchen-ec2
 
 script:
-  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER make ec2_test
+  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER bundle exec make ec2_test
 
 after_script:
-  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER make ec2_destroy
+  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER bundle exec make ec2_destroy
 
 env:
   matrix:
