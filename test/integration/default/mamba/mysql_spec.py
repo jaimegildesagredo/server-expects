@@ -22,8 +22,8 @@ class Constants(object):
 c = Constants('TEST')
 
 
-with describe('be_accessible'):
-    with describe('mysql'):
+with describe('mysql'):
+    with describe('be_accessible'):
         with it('passes if instance is accessible by root without password'):
             expect(mysql(c.A_MYSQL_LISTENING_HOST)).to(be_accessible)
 
