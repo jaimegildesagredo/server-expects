@@ -171,17 +171,18 @@ class mysql(object):
 
 
 class http(object):
-    def __init__(self, host, port=80, path=''):
+    def __init__(self, host, port=80, path='', timeout=1):
         self.host = host
         self.port = port
         self.path = path
+        self.timeout = timeout
 
     @property
     def is_accessible(self):
         import requests
 
         try:
-            response = requests.get(self._uri, timeout=1)
+            response = requests.get(self._uri, timeout=self.timeout)
         except requests.ConnectionError:
             return False
 
@@ -194,17 +195,18 @@ class http(object):
 
 
 class https(object):
-    def __init__(self, host, port=443, path=''):
+    def __init__(self, host, port=443, path='', timeout=1):
         self.host = host
         self.port = port
         self.path = path
+        self.timeout = timeout
 
     @property
     def is_accessible(self):
         import requests
 
         try:
-            response = requests.get(self._uri, timeout=1)
+            response = requests.get(self._uri, timeout=self.timeout)
         except requests.ConnectionError:
             return False
 
