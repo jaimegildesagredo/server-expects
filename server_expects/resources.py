@@ -193,6 +193,29 @@ class http(object):
             host=self.host, port=self.port, path=self.path)
 
 
+class https(object):
+    def __init__(self, host, port=443, path=''):
+        self.host = host
+        self.port = port
+        self.path = path
+
+    @property
+    def is_accessible(self):
+        import requests
+
+        try:
+            response = requests.get(self._uri, timeout=1)
+        except requests.ConnectionError:
+            return False
+
+        return response.status_code == 200
+
+    @property
+    def _uri(self):
+        return 'https://{host}:{port}/{path}'.format(
+            host=self.host, port=self.port, path=self.path)
+
+
 def _run(*args):
     env = dict(os.environ)
     env['LANG'] = 'C'
@@ -203,4 +226,4 @@ def _run(*args):
     }
     return subprocess.check_output(*args, **kwargs).decode('ascii')
 
-__all__ = ['package', 'deb', 'egg', 'host', 'mysql', 'http']
+__all__ = ['package', 'deb', 'egg', 'host', 'mysql', 'http', 'https']

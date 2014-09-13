@@ -38,3 +38,10 @@ export TEST_A_HTTP_NOT_LISTENING_HOST=www.notlisteninghost.com
 export TEST_A_HTTP_NOT_LISTENING_PORT=8080
 export TEST_A_HTTP_EXISTENT_PATH=analytics
 export TEST_A_HTTP_NOT_EXISTENT_PATH=notexistentpath
+
+export TEST_A_HTTPS_LISTENING_HOST=www.google.com
+export TEST_A_HTTPS_LISTENING_PORT=443
+export TEST_A_HTTPS_NOT_LISTENING_HOST=www.notlisteninghost.com
+export TEST_A_HTTPS_NOT_LISTENING_PORT=4443
+export TEST_A_HTTPS_EXISTENT_PATH=analytics
+export TEST_A_HTTPS_NOT_EXISTENT_PATH=notexistentpath

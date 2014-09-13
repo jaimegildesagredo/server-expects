@@ -10,6 +10,9 @@ test: sdist
 sdist:
 	python setup.py sdist
 
+verify:
+	kitchen verify $(KITCHEN_INSTANCE)
+
 list:
 	kitchen list $(KITCHEN_INSTANCE)
 
