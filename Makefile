@@ -29,11 +29,11 @@ ec2_test: sdist
 	ssh-keygen -q -b 2048 -t rsa -f $(AWS_SSH_KEY_PATH) -N ''
 	aws ec2 import-key-pair --key-name $(AWS_SSH_KEY_ID) --public-key-material "`cat $(AWS_SSH_KEY_PATH).pub`"
 	cp $(DIST) $(TEST_DIST)
-	KITCHEN_YAML=.kitchen.cloud.yml kitchen test $(KITCHEN_INSTANCE)
+	KITCHEN_DRIVER=ec2 kitchen test $(KITCHEN_INSTANCE)
 
 ec2_list:
-	KITCHEN_YAML=.kitchen.cloud.yml kitchen list $(KITCHEN_INSTANCE)
+	KITCHEN_DRIVER=ec2 kitchen list $(KITCHEN_INSTANCE)
 
 ec2_destroy:
-	KITCHEN_YAML=.kitchen.cloud.yml kitchen destroy $(KITCHEN_INSTANCE)
+	KITCHEN_DRIVER=ec2 kitchen destroy $(KITCHEN_INSTANCE)
 	aws ec2 delete-key-pair --key-name $(AWS_SSH_KEY_ID)
