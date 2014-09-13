@@ -38,7 +38,7 @@ with describe('be_reachable'):
             expect(c.AN_UNREACHABLE_HOST).to(be_reachable)
 
     with it('fails if host cannot be resolved'):
-        with failure('but cannot be resolved'):
+        with failure(' but cannot be resolved'):
             expect(c.AN_UNRESOLVABLE_HOST).to(be_reachable)
 
     with describe('host'):
@@ -57,5 +57,5 @@ with describe('be_reachable'):
                 expect(host(c.AN_UNREACHABLE_HOST)).to(be_reachable)
 
         with it('fails if host cannot be resolved'):
-            with failure('but cannot be resolved'):
+            with failure(' but cannot be resolved'):
                 expect(host(c.AN_UNRESOLVABLE_HOST)).to(be_reachable)

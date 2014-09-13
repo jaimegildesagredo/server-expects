@@ -1,3 +1,4 @@
 -e git+git://github.com/nestorsalceda/mamba.git#egg=mamba
 -e git+git://github.com/jaimegildesagredo/expects.git#egg=expects
 pymysql==0.6.2
+requests==2.4.1
