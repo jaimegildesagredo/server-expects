@@ -9,6 +9,5 @@ docs/_build/
 src/
 .vagrant/
 .kitchen/
-provision/data/server-expects.tar.gz
 .aws-credentials.sh
 Gemfile.lock

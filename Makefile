@@ -1,14 +1,11 @@
 NAME = $(shell python setup.py --name)
 VERSION = $(shell python setup.py --version)
-DIST = dist/$(NAME)-$(VERSION).tar.gz
-TEST_DIST = provision/data/$(NAME).tar.gz
 
-test: sdist
-	cp $(DIST) $(TEST_DIST)
+test:
 	kitchen test $(KITCHEN_INSTANCE)
 
-sdist:
-	python setup.py sdist
+converge:
+	kitchen converge $(KITCHEN_INSTANCE)
 
 verify:
 	kitchen verify $(KITCHEN_INSTANCE)
@@ -19,16 +16,9 @@ list:
 destroy:
 	kitchen destroy $(KITCHEN_INSTANCE)
 
-distclean: clean
-	rm -f $(DIST)
-
-clean:
-	rm -f $(TEST_DIST)
-
-ec2_test: sdist
+ec2_test:
 	ssh-keygen -q -b 2048 -t rsa -f $(AWS_SSH_KEY_PATH) -N ''
 	aws ec2 import-key-pair --key-name $(AWS_SSH_KEY_ID) --public-key-material "`cat $(AWS_SSH_KEY_PATH).pub`"
-	cp $(DIST) $(TEST_DIST)
 	KITCHEN_DRIVER=ec2 kitchen test $(KITCHEN_INSTANCE)
 
 ec2_list:
@@ -37,3 +27,6 @@ ec2_list:
 ec2_destroy:
 	KITCHEN_DRIVER=ec2 kitchen destroy $(KITCHEN_INSTANCE)
 	aws ec2 delete-key-pair --key-name $(AWS_SSH_KEY_ID)
+	rm -f $(AWS_SSH_KEY_PATH) $(AWS_SSH_KEY_PATH).pub
+
+.PHONY: test
