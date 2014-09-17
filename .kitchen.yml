@@ -26,20 +26,21 @@ busser:
 platforms:
   - name: ubuntu-12.04
     driver:
-      # Vagrant
+    <% if kitchen_driver == 'vagrant' %>
       box: ubuntu/precise64
+    <% end %>
 
     provisioner:
       script: provision/ubuntu-12.04-bootstrap.sh
 
   - name: ubuntu-14.04
     driver:
-      # Vagrant
-      box: ubuntu/trusty64
-
-      # EC2
+    <% if kitchen_driver == 'ec2' %>
       image_id: ami-3907d64e
       username: ubuntu
+    <% else %>
+      box: ubuntu/trusty64
+    <% end %>
 
     provisioner:
       script: provision/ubuntu-14.04-bootstrap.sh
