@@ -3,11 +3,12 @@
 export DEBIAN_FRONTEND=noninteractive
 
 add-apt-repository -y ppa:fkrull/deadsnakes
+add-apt-repository -y ppa:pypy/ppa
 
 apt-get update
 apt-get update
 apt-get remove -y ruby1.8
-apt-get install -y python python3.3 python3.4 python-virtualenv git ruby1.9.1-full
+apt-get install -y python python3.3 python3.4 pypy python-virtualenv git ruby1.9.1-full
 easy_install pip
 
 # Fix busser crash with default ruby symlink in 14.04
