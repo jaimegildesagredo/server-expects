@@ -45,3 +45,7 @@ export TEST_A_HTTPS_NOT_LISTENING_HOST=www.notlisteninghost.com
 export TEST_A_HTTPS_NOT_LISTENING_PORT=4443
 export TEST_A_HTTPS_EXISTENT_PATH=analytics
 export TEST_A_HTTPS_NOT_EXISTENT_PATH=notexistentpath
+
+export TEST_AN_EXISTENT_FILE_PATH=/etc/hosts
+export TEST_A_NOT_EXISTENT_PATH=/not_existent_file_path
+export TEST_AN_EXISTENT_DIRECTORY_PATH=/etc

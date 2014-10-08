@@ -218,6 +218,26 @@ class https(object):
             host=self.host, port=self.port, path=self.path)
 
 
+class path(object):
+    def __init__(self, path):
+        self.path = path
+
+    def __repr__(self):
+        return 'path({!r})'.format(self._path)
+
+    @property
+    def exists(self):
+        return os.path.exists(self.path)
+
+    @property
+    def is_a_file(self):
+        return os.path.isfile(self.path)
+
+    @property
+    def is_a_directory(self):
+        return os.path.isdir(self.path)
+
+
 def _run(*args):
     env = dict(os.environ)
     env['LANG'] = 'C'
