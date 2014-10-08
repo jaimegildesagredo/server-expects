@@ -1,25 +1,11 @@
 # -*- coding: utf-8 -*-
 
-import os
-
 from expects import expect
 from expects.testing import failure
 
 from server_expects import *
 
-
-class Constants(object):
-    def __init__(self, prefix):
-        self._prefix = prefix
-
-    def __getattr__(self, name):
-        try:
-            return os.environ[self._prefix + '_' + name]
-        except KeyError:
-            raise AttributeError(name)
-
-
-c = Constants('TEST')
+from .constants import c
 
 
 with describe('http'):
