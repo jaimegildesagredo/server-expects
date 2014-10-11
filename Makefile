@@ -1,6 +1,3 @@
-NAME = $(shell python setup.py --name)
-VERSION = $(shell python setup.py --version)
-
 test:
 	kitchen test $(KITCHEN_INSTANCE)
 
