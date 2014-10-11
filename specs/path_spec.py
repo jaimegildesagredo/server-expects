@@ -42,3 +42,22 @@ with describe('path'):
         with it('fails if path does not exist'):
             with failure(' but does not exist'):
                 expect(c.A_NOT_EXISTENT_PATH).to(be_a_directory)
+
+    with describe('have_owner'):
+        with it('passes if file exists and have owner'):
+            expect(c.AN_EXISTENT_FILE_PATH).to(have_owner(c.AN_EXISTENT_FILE_OWNER))
+
+        with it('passes if directory exists and have owner'):
+            expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_owner(c.AN_EXISTENT_DIRECTORY_OWNER))
+
+        with it('fails if file exists and does not have owner'):
+            with failure:
+                expect(c.AN_EXISTENT_FILE_PATH).to(have_owner(c.AN_EXISTENT_FILE_INVALID_OWNER))
+
+        with it('fails if file does not exist'):
+            with failure(' but does not exist'):
+                expect(c.A_NOT_EXISTENT_PATH).to(have_owner(c.AN_EXISTENT_FILE_OWNER))
+
+        with it('fails if directory exists and does not have owner'):
+            with failure:
+                expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_owner(c.AN_EXISTENT_DIRECTORY_INVALID_OWNER))

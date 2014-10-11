@@ -2,6 +2,7 @@
 
 import os
 import re
+import pwd
 import socket
 import subprocess
 
@@ -236,6 +237,11 @@ class path(object):
     @property
     def is_a_directory(self):
         return os.path.isdir(self.path)
+
+    @property
+    def owner(self):
+        if self.exists:
+            return pwd.getpwuid(os.stat(self.path).st_uid).pw_name
 
 
 def _run(*args):

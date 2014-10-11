@@ -118,6 +118,30 @@ class _be_a_directory(Matcher):
         return path_resource(path)
 
 
+class have_owner(Matcher):
+    def __init__(self, expected):
+        self._expected = expected
+
+    def _match(self, path):
+        return self._expected == self._resource_for(path).owner
+
+    def _description(self, path):
+        path = self._resource_for(path)
+
+        message = super(have_owner, self)._description(path)
+
+        if not path.exists:
+            message += ' but does not exist'
+
+        return message
+
+    def _resource_for(self, path):
+        if hasattr(path, 'exists'):
+            return path
+
+        return path_resource(path)
+
+
 be_installed = _be_installed()
 be_reachable = _be_reachable()
 be_accessible = _be_accessible()
@@ -131,5 +155,6 @@ __all__ = [
     'be_accessible',
     'exists',
     'be_a_file',
-    'be_a_directory'
+    'be_a_directory',
+    'have_owner'
 ]
