@@ -3,6 +3,7 @@
 import os
 import re
 import pwd
+import grp
 import socket
 import subprocess
 
@@ -242,6 +243,11 @@ class path(object):
     def owner(self):
         if self.exists:
             return pwd.getpwuid(os.stat(self.path).st_uid).pw_name
+
+    @property
+    def group(self):
+        if self.exists:
+            return grp.getgrgid(os.stat(self.path).st_gid).gr_name
 
 
 def _run(*args):

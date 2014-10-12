@@ -61,3 +61,22 @@ with describe('path'):
         with it('fails if directory exists and does not have owner'):
             with failure:
                 expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_owner(c.AN_EXISTENT_DIRECTORY_INVALID_OWNER))
+
+    with describe('have_group'):
+        with it('passes if file exists and have group'):
+            expect(c.AN_EXISTENT_FILE_PATH).to(have_group(c.AN_EXISTENT_FILE_GROUP))
+
+        with it('passes if directory exists and have group'):
+            expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_group(c.AN_EXISTENT_DIRECTORY_GROUP))
+
+        with it('fails if file exists and does not have group'):
+            with failure:
+                expect(c.AN_EXISTENT_FILE_PATH).to(have_group(c.AN_EXISTENT_FILE_INVALID_GROUP))
+
+        with it('fails if file does not exist'):
+            with failure(' but does not exist'):
+                expect(c.A_NOT_EXISTENT_PATH).to(have_group(c.AN_EXISTENT_FILE_GROUP))
+
+        with it('fails if directory exists and does not have group'):
+            with failure:
+                expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_group(c.AN_EXISTENT_DIRECTORY_INVALID_GROUP))
