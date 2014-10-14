@@ -249,6 +249,11 @@ class path(object):
         if self.exists:
             return grp.getgrgid(os.stat(self.path).st_gid).gr_name
 
+    @property
+    def mode(self):
+        if self.exists:
+            return os.stat(self.path).st_mode & 0o777
+
 
 def _run(*args):
     env = dict(os.environ)
