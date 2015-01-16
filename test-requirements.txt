@@ -1,3 +1,4 @@
 mamba
 pymysql==0.6.2
 requests==2.4.1
+https://github.com/jaimegildesagredo/expects/archive/master.zip
