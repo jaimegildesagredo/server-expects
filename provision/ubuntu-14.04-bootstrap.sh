@@ -2,6 +2,9 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
+apt-get update
+apt-get install -y software-properties-common
+
 add-apt-repository -y ppa:fkrull/deadsnakes
 add-apt-repository -y ppa:pypy/ppa
 
@@ -18,7 +21,7 @@ ln -s /usr/bin/ruby1.9.1 /usr/bin/ruby
 cat `dirname $0`/data/ubuntu-14.04-environment.sh > /etc/bash.bashrc
 . /etc/bash.bashrc
 
-apt-get install -y $TEST_AN_INSTALLED_DEB_NAME=$TEST_AN_INSTALLED_DEB_VERSION
+apt-get install -y --force-yes $TEST_AN_INSTALLED_DEB_NAME=$TEST_AN_INSTALLED_DEB_VERSION
 apt-get remove -y $TEST_AN_UNINSTALLED_DEB
 
 pip install $TEST_AN_INSTALLED_EGG_NAME==$TEST_AN_INSTALLED_EGG_VERSION

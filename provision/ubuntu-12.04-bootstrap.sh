@@ -2,6 +2,9 @@
 
 export DEBIAN_FRONTEND=noninteractive
 
+apt-get update
+apt-get install -y python-software-properties
+
 add-apt-repository -y ppa:fkrull/deadsnakes
 add-apt-repository -y ppa:pypy/ppa
 
