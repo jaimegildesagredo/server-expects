@@ -1,3 +1,3 @@
-https://github.com/nestorsalceda/mamba/archive/master.zip
+mamba
 pymysql==0.6.2
 requests==2.4.1
