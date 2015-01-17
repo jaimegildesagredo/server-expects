@@ -265,4 +265,4 @@ def _run(*args):
     }
     return subprocess.check_output(*args, **kwargs).decode('ascii')
 
-__all__ = ['package', 'deb', 'egg', 'host', 'mysql', 'http', 'https']
+__all__ = ['package', 'deb', 'egg', 'host', 'mysql', 'http', 'https', 'path']
