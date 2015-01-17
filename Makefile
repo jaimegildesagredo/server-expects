@@ -26,4 +26,4 @@ ec2_destroy:
 	aws ec2 delete-key-pair --key-name $(AWS_SSH_KEY_ID)
 	rm -f $(AWS_SSH_KEY_PATH) $(AWS_SSH_KEY_PATH).pub
 
-.PHONY: test
+.PHONY: test converge verify list destroy ec2_test ec2_list ec2_destroy
