@@ -123,7 +123,7 @@ class have_owner(Matcher):
         self._expected = expected
 
     def _match(self, path):
-        return self._expected == self._resource_for(path).owner
+        return self._match_value(self._expected, self._resource_for(path).owner)
 
     def _description(self, path):
         path = self._resource_for(path)
@@ -147,7 +147,7 @@ class have_group(Matcher):
         self._expected = expected
 
     def _match(self, path):
-        return self._expected == self._resource_for(path).group
+        return self._match_value(self._expected, self._resource_for(path).group)
 
     def _description(self, path):
         path = self._resource_for(path)
@@ -171,12 +171,17 @@ class have_mode(Matcher):
         self._expected = expected
 
     def _match(self, path):
-        return self._expected == self._resource_for(path).mode
+        return self._match_value(self._expected, self._resource_for(path).mode)
 
     def _description(self, path):
         path = self._resource_for(path)
 
-        message = 'have mode {}'.format(oct(self._expected))
+        message = 'have mode '
+
+        if hasattr(self._expected, '_description'):
+            message += self._expected._description(path.mode)
+        else:
+            message += oct(self._expected)
 
         if not path.exists:
             message += ' but does not exist'

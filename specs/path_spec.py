@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from expects import expect
+from expects import expect, match
+from expects.aliases import above_or_equal, below_or_equal
 from expects.testing import failure
 
 from server_expects import *
@@ -50,6 +51,9 @@ with describe('path'):
         with it('passes if directory exists and has owner'):
             expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_owner(c.AN_EXISTENT_DIRECTORY_OWNER))
 
+        with it('passes if file exists and owner matches'):
+            expect(c.AN_EXISTENT_FILE_PATH).to(have_owner(match('\w+')))
+
         with it('fails if file exists and does not have owner'):
             with failure:
                 expect(c.AN_EXISTENT_FILE_PATH).to(have_owner(c.AN_EXISTENT_FILE_INVALID_OWNER))
@@ -62,12 +66,19 @@ with describe('path'):
             with failure:
                 expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_owner(c.AN_EXISTENT_DIRECTORY_INVALID_OWNER))
 
+        with it('fails if file exists and owner does not match'):
+            with failure:
+                expect(c.AN_EXISTENT_FILE_PATH).to(have_owner(match('\d+')))
+
     with describe('have_group'):
         with it('passes if file exists and has group'):
             expect(c.AN_EXISTENT_FILE_PATH).to(have_group(c.AN_EXISTENT_FILE_GROUP))
 
         with it('passes if directory exists and has group'):
             expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_group(c.AN_EXISTENT_DIRECTORY_GROUP))
+
+        with it('passes if file exists and group matches'):
+            expect(c.AN_EXISTENT_FILE_PATH).to(have_group(match('\w+')))
 
         with it('fails if file exists and does not have group'):
             with failure:
@@ -81,12 +92,19 @@ with describe('path'):
             with failure:
                 expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_group(c.AN_EXISTENT_DIRECTORY_INVALID_GROUP))
 
+        with it('fails if file exists and group does not match'):
+            with failure:
+                expect(c.AN_EXISTENT_FILE_PATH).to(have_group(match('\d+')))
+
     with describe('have_mode'):
         with it('passes if file exists and has mode'):
             expect(c.AN_EXISTENT_FILE_PATH).to(have_mode(int(c.AN_EXISTENT_FILE_MODE, 8)))
 
         with it('passes if directory exists and has mode'):
             expect(c.AN_EXISTENT_DIRECTORY_PATH).to(have_mode(int(c.AN_EXISTENT_DIRECTORY_MODE, 8)))
+
+        with it('passes if file exists and mode matches'):
+            expect(c.AN_EXISTENT_FILE_PATH).to(have_mode(above_or_equal(int(c.AN_EXISTENT_FILE_MODE, 8))))
 
         with it('fails if file exists and does not have mode'):
             actual_mode = int(c.AN_EXISTENT_FILE_MODE, 8)
@@ -98,3 +116,7 @@ with describe('path'):
         with it('fails if file does not exist'):
             with failure(' but does not exist'):
                 expect(c.A_NOT_EXISTENT_PATH).to(have_mode(int(c.AN_EXISTENT_FILE_MODE, 8)))
+
+        with it('fails if file exists and mode does not match'):
+            with failure:
+                expect(c.AN_EXISTENT_FILE_PATH).to(have_mode(below_or_equal(0)))
