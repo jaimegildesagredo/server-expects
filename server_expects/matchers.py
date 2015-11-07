@@ -5,6 +5,7 @@ from expects.matchers import Matcher
 from .resources import (
     package as package_resource,
     host as host_resource,
+    port as port_resource,
     path as path_resource
 )
 
@@ -57,6 +58,14 @@ class _be_reachable(Matcher):
 class _be_accessible(Matcher):
     def _match(self, instance):
         return instance.is_accessible
+
+
+class _be_listening(Matcher):
+    def _match(self, port):
+        return self._resource_for(port).is_listening
+
+    def _resource_for(self, value):
+        return port_resource(value)
 
 
 class _exists(Matcher):
@@ -200,6 +209,7 @@ class have_mode(Matcher):
 be_installed = _be_installed()
 be_reachable = _be_reachable()
 be_accessible = _be_accessible()
+be_listening = _be_listening()
 exists = _exists()
 be_a_file = _be_a_file()
 be_a_directory = _be_a_directory()
@@ -208,6 +218,7 @@ __all__ = [
     'be_installed',
     'be_reachable',
     'be_accessible',
+    'be_listening',
     'exists',
     'be_a_file',
     'be_a_directory',

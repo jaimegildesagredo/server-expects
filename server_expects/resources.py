@@ -220,6 +220,29 @@ class https(object):
             host=self.host, port=self.port, path=self.path)
 
 
+class port(object):
+    def __init__(self, port):
+        self.port = port
+
+    @property
+    def is_listening(self):
+        tcp_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        try:
+            tcp_socket.connect(('127.0.0.1', self.port))
+        except:
+            udp_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+            try:
+                udp_socket.connect(('127.0.0.1', self.port))
+            except:
+                return False
+            finally:
+                udp_socket.close()
+        finally:
+            tcp_socket.close()
+
+        return True
+
+
 class path(object):
     def __init__(self, path):
         self.path = path
