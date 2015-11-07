@@ -195,6 +195,9 @@ class http(object):
         return 'http://{host}:{port}/{path}'.format(
             host=self.host, port=self.port, path=self.path)
 
+    def __repr__(self):
+        return 'http(uri={uri})'.format(uri=self._uri)
+
 
 class https(object):
     def __init__(self, host, port=443, path='', timeout=1):
@@ -218,6 +221,9 @@ class https(object):
     def _uri(self):
         return 'https://{host}:{port}/{path}'.format(
             host=self.host, port=self.port, path=self.path)
+
+    def __repr__(self):
+        return 'https(uri={uri})'.format(uri=self._uri)
 
 
 class path(object):
