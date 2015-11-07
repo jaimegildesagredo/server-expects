@@ -25,11 +25,11 @@ with describe('path'):
             expect(c.AN_EXISTENT_FILE_PATH).to(be_a_file)
 
         with it('fails if path is a directory'):
-            with failure(' but is a directory'):
+            with failure('is a directory'):
                 expect(c.AN_EXISTENT_DIRECTORY_PATH).to(be_a_file)
 
         with it('fails if path does not exist'):
-            with failure(' but does not exist'):
+            with failure('does not exist'):
                 expect(c.A_NOT_EXISTENT_PATH).to(be_a_file)
 
     with describe('be_a_directory'):
@@ -37,11 +37,11 @@ with describe('path'):
             expect(c.AN_EXISTENT_DIRECTORY_PATH).to(be_a_directory)
 
         with it('fails if path is a file'):
-            with failure(' but is a file'):
+            with failure('is a file'):
                 expect(c.AN_EXISTENT_FILE_PATH).to(be_a_directory)
 
         with it('fails if path does not exist'):
-            with failure(' but does not exist'):
+            with failure('does not exist'):
                 expect(c.A_NOT_EXISTENT_PATH).to(be_a_directory)
 
     with describe('have_owner'):
@@ -59,7 +59,7 @@ with describe('path'):
                 expect(c.AN_EXISTENT_FILE_PATH).to(have_owner(c.AN_EXISTENT_FILE_INVALID_OWNER))
 
         with it('fails if file does not exist'):
-            with failure(' but does not exist'):
+            with failure('does not exist'):
                 expect(c.A_NOT_EXISTENT_PATH).to(have_owner(c.AN_EXISTENT_FILE_OWNER))
 
         with it('fails if directory exists and does not have owner'):
@@ -85,7 +85,7 @@ with describe('path'):
                 expect(c.AN_EXISTENT_FILE_PATH).to(have_group(c.AN_EXISTENT_FILE_INVALID_GROUP))
 
         with it('fails if file does not exist'):
-            with failure(' but does not exist'):
+            with failure('does not exist'):
                 expect(c.A_NOT_EXISTENT_PATH).to(have_group(c.AN_EXISTENT_FILE_GROUP))
 
         with it('fails if directory exists and does not have group'):
@@ -110,11 +110,11 @@ with describe('path'):
             actual_mode = int(c.AN_EXISTENT_FILE_MODE, 8)
             expected_mode = int(c.AN_EXISTENT_FILE_INVALID_MODE, 8)
 
-            with failure(' have mode {} but was {}'.format(oct(expected_mode), oct(actual_mode))):
+            with failure('has mode {}'.format(oct(actual_mode))):
                 expect(c.AN_EXISTENT_FILE_PATH).to(have_mode(expected_mode))
 
         with it('fails if file does not exist'):
-            with failure(' but does not exist'):
+            with failure('does not exist'):
                 expect(c.A_NOT_EXISTENT_PATH).to(have_mode(int(c.AN_EXISTENT_FILE_MODE, 8)))
 
         with it('fails if file exists and mode does not match'):

@@ -22,6 +22,6 @@ with describe('deb'):
                 expect(deb(c.AN_UNINSTALLED_DEB)).to(be_installed)
 
         with it('fails if package with a different version is installed'):
-            with failure(' but {!r} version is installed'.format(c.AN_INSTALLED_DEB_VERSION)):
+            with failure('{!r} version is installed'.format(c.AN_INSTALLED_DEB_VERSION)):
                 expect(deb(c.AN_INSTALLED_DEB_NAME,
                            c.AN_UNINSTALLED_DEB_VERSION)).to(be_installed)

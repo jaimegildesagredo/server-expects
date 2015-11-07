@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from expects.matchers import Matcher
+from expects.matchers import Matcher, default_matcher
 
 from .resources import (
     package as package_resource,
@@ -11,7 +11,17 @@ from .resources import (
 
 class _be_installed(Matcher):
     def _match(self, package):
-        return self._resource_for(package).is_installed
+        package = self._resource_for(package)
+        reasons = []
+        if package.version is not None:
+            reasons.append('{!r} version is installed'.format(package.current_version))
+
+        # TODO: This error could be from a raised exception
+        #       instead of this obscure state.
+        if hasattr(package, 'failure_message'):
+            reasons.append(package.failure_message)
+
+        return package.is_installed, reasons
 
     def _resource_for(self, package):
         if hasattr(package, 'is_installed'):
@@ -19,23 +29,16 @@ class _be_installed(Matcher):
 
         return package_resource(package)
 
-    def _description(self, package):
-        package = self._resource_for(package)
-
-        message = super(_be_installed, self)._description(package)
-
-        if package.version is not None:
-            message += ' but {!r} version is installed'.format(package.current_version)
-
-        if hasattr(package, 'failure_message'):
-            message += package.failure_message
-
-        return message
-
 
 class _be_reachable(Matcher):
     def _match(self, host):
-        return self._resource_for(host).is_reachable
+        host = self._resource_for(host)
+
+        reasons = []
+        if not host.is_resolvable:
+            reasons.append('cannot be resolved')
+
+        return host.is_reachable, reasons
 
     def _resource_for(self, host):
         if hasattr(host, 'is_reachable'):
@@ -43,25 +46,15 @@ class _be_reachable(Matcher):
 
         return host_resource(host)
 
-    def _description(self, host):
-        host = self._resource_for(host)
-
-        message = super(_be_reachable, self)._description(host)
-
-        if not host.is_resolvable:
-            message += ' but cannot be resolved'
-
-        return message
-
 
 class _be_accessible(Matcher):
     def _match(self, instance):
-        return instance.is_accessible
+        return instance.is_accessible, []
 
 
 class _exists(Matcher):
     def _match(self, path):
-        return self._resource_for(path).exists
+        return self._resource_for(path).exists, []
 
     def _resource_for(self, path):
         if hasattr(path, 'exists'):
@@ -72,20 +65,16 @@ class _exists(Matcher):
 
 class _be_a_file(Matcher):
     def _match(self, path):
-        return self._resource_for(path).is_a_file
-
-    def _description(self, path):
         path = self._resource_for(path)
 
-        message = super(_be_a_file, self)._description(path)
-
+        reasons = []
         if not path.exists:
-            message += ' but does not exist'
+            reasons.append('does not exist')
 
         if path.is_a_directory:
-            message += ' but is a directory'
+            reasons.append('is a directory')
 
-        return message
+        return path.is_a_file, reasons
 
     def _resource_for(self, path):
         if hasattr(path, 'exists'):
@@ -96,20 +85,16 @@ class _be_a_file(Matcher):
 
 class _be_a_directory(Matcher):
     def _match(self, path):
-        return self._resource_for(path).is_a_directory
-
-    def _description(self, path):
         path = self._resource_for(path)
 
-        message = super(_be_a_directory, self)._description(path)
-
+        reasons = []
         if not path.exists:
-            message += ' but does not exist'
+            reasons.append('does not exist')
 
         if path.is_a_file:
-            message += ' but is a file'
+            reasons.append('is a file')
 
-        return message
+        return path.is_a_directory, reasons
 
     def _resource_for(self, path):
         if hasattr(path, 'exists'):
@@ -123,17 +108,13 @@ class have_owner(Matcher):
         self._expected = expected
 
     def _match(self, path):
-        return self._match_value(self._expected, self._resource_for(path).owner)
-
-    def _description(self, path):
         path = self._resource_for(path)
 
-        message = super(have_owner, self)._description(path)
-
+        reasons = []
         if not path.exists:
-            message += ' but does not exist'
+            reasons.append('does not exist')
 
-        return message
+        return default_matcher(self._expected)._match(path.owner)[0], reasons
 
     def _resource_for(self, path):
         if hasattr(path, 'exists'):
@@ -147,17 +128,13 @@ class have_group(Matcher):
         self._expected = expected
 
     def _match(self, path):
-        return self._match_value(self._expected, self._resource_for(path).group)
-
-    def _description(self, path):
         path = self._resource_for(path)
 
-        message = super(have_group, self)._description(path)
-
+        reasons = []
         if not path.exists:
-            message += ' but does not exist'
+            reasons.append('does not exist')
 
-        return message
+        return default_matcher(self._expected)._match(path.group)[0], reasons
 
     def _resource_for(self, path):
         if hasattr(path, 'exists'):
@@ -171,24 +148,15 @@ class have_mode(Matcher):
         self._expected = expected
 
     def _match(self, path):
-        return self._match_value(self._expected, self._resource_for(path).mode)
-
-    def _description(self, path):
         path = self._resource_for(path)
 
-        message = 'have mode '
-
-        if hasattr(self._expected, '_description'):
-            message += self._expected._description(path.mode)
-        else:
-            message += oct(self._expected)
-
+        reasons = []
         if not path.exists:
-            message += ' but does not exist'
+            reasons.append('does not exist')
         else:
-            message += ' but was {}'.format(oct(path.mode))
+            reasons.append('has mode {}'.format(oct(path.mode)))
 
-        return message
+        return default_matcher(self._expected)._match(path.mode)[0], reasons
 
     def _resource_for(self, path):
         if hasattr(path, 'exists'):
