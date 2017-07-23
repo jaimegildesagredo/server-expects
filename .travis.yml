@@ -17,12 +17,3 @@ env:
   matrix:
     - KITCHEN_INSTANCE=ubuntu-1204
     - KITCHEN_INSTANCE=ubuntu-1404
-
-  global:
-    - secure: "rwO0iDEtJSyrTvPCK8AhFtssy7WIYVlYQGbHhRXRaqMYjrc+VLEnOE0TFV5Mmn5naLX74eWoqtGd71+s6pgkfeCe1AgcIeenScNK2GkmvXoDwHi3khCTMf12RRHI12+6nwBitbFXsmKx077fV9Sz4yhLVfanwT+CSKf0hvcefz0="
-    - secure: "gx4e9RwbiqH9VyQqIB4RswIjQjJtt6KpkO/ZTn96U+3AuPihnsIqjz4AZA+tweXZuk3lBruRBxADQbZVrNM+hHCLmI8lWIj2cSFcOyaiSP2eKJyBnQA8fDD4ouWKHdGO3qukVCFcn7D/O/k09wqhmThjkDbfQ7dhVrVVdqqTtjY="
-    - secure: "LfDv1ebst4qau35gDCAOdEF6b0xqxjDs54OHhnBQh4bL7lPJiy5pTqIj03qyQAmX5vaVx7lsqfU2ir1NCS3Pq7kPBNKpXuCfJceT7ynZAE0LVdUolzjAG+nsblmuCMdx9IllbMDUr4KKEx5aMtVn9/Y/JiCmS2D1d0P/TsmOju4="
-    - secure: "ZP4P6mM+2KUZ7yp4cqoVcX/j3bYgEwCn1UZD8QbLfeSTZuUjrTs+disOqyjCF70zLeW0HQYVwoVfqmQFR7V4fO29BKyaKTg69wvqgLEQIKSHIF8CjTcnhCi+x04jTImrYuHT2eTMaA7sT4R7cKp6VRcjET98JYrwS5HrphytBlo="
-    - secure: "XpyiJBWf+9kh585v0V4OuGzL5KbUKBv7hUfLVX0p+GiI+weus0UXIGBhtPo43c35FT3cFppEY+xl0D30nhxsWBPY8w2praHoja20LOTSmc44aVqBO207BRZ48OjmDfkWjQkmi0NjVlnof2kR3aVR3FZyh9dsG83R/V5syLyzT7o="
-    - secure: "wd/yr85nl6nTSzuc/CXUiI+XnsXjtro42w7ToQqW/T8zXSG0TLS8DFB/KOFuaa9UptnH5GAX/TcX9RJx8WiH2V0Mt1yoqzD3Nf6kA5UalHZrtoZfd6gBuzbIlv5fcXGCcvRoUOjNFHvx4vKTei+vmMFJZHbwOXR18iwGSasnvqM="
-    - secure: "bb589Wol/enVJzkZ62DEYLnwCagjwfTFiKAZL3qoeB7h6/aH2vxIvdwsvhihttrAKoAFEJQo2Xc902r9TicvFyz5FTqDAOz44oE1jVqvUP+aRnwyXKBNcyaLZeNelEYPloABJaWKx4ExWdfPRwhgfXQox1vWukg7+tKcAFlv1dU="
