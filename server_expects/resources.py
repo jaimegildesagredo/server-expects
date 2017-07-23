@@ -231,7 +231,7 @@ class path(object):
         self.path = path
 
     def __repr__(self):
-        return 'path({!r})'.format(self._path)
+        return 'path({!r})'.format(self.path)
 
     @property
     def exists(self):
