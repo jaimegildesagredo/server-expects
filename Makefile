@@ -15,17 +15,13 @@ list:
 destroy:
 	kitchen destroy $(KITCHEN_OPTIONS) $(KITCHEN_INSTANCE)
 
-ec2_test:
-	ssh-keygen -q -b 2048 -t rsa -f $(AWS_SSH_KEY_PATH) -N ''
-	aws ec2 import-key-pair --key-name $(AWS_SSH_KEY_ID) --public-key-material "`cat $(AWS_SSH_KEY_PATH).pub`"
-	KITCHEN_DRIVER=ec2 kitchen test $(KITCHEN_OPTIONS) $(KITCHEN_INSTANCE)
+scaleway_test:
+	KITCHEN_DRIVER=scaleway kitchen test $(KITCHEN_OPTIONS) $(KITCHEN_INSTANCE)
 
-ec2_list:
-	KITCHEN_DRIVER=ec2 kitchen list $(KITCHEN_INSTANCE)
+scaleway_list:
+	KITCHEN_DRIVER=scaleway kitchen list $(KITCHEN_INSTANCE)
 
-ec2_destroy:
-	KITCHEN_DRIVER=ec2 kitchen destroy $(KITCHEN_OPTIONS) $(KITCHEN_INSTANCE)
-	aws ec2 delete-key-pair --key-name $(AWS_SSH_KEY_ID)
-	rm -f $(AWS_SSH_KEY_PATH) $(AWS_SSH_KEY_PATH).pub
+scaleway_destroy:
+	KITCHEN_DRIVER=scaleway kitchen destroy $(KITCHEN_OPTIONS) $(KITCHEN_INSTANCE)
 
-.PHONY: test converge verify list destroy ec2_test ec2_list ec2_destroy
+.PHONY: test converge verify list destroy scaleway_test scaleway_list scaleway_destroy

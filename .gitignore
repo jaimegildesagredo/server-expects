@@ -9,5 +9,5 @@ docs/_build/
 src/
 .vagrant/
 .kitchen/
-.aws-credentials.sh
+.scaleway-credentials.sh
 Gemfile.lock

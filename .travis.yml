@@ -3,17 +3,22 @@ language: ruby
 rvm:
   - 2.4
 
+before_install:
+  - openssl aes-256-cbc -K $encrypted_442239fa91ec_key -iv $encrypted_442239fa91ec_iv -in scaleway_rsa.enc -out /tmp/scaleway_rsa -d
+  - eval "$(ssh-agent -s)"
+  - chmod 600 /tmp/scaleway_rsa
+  - ssh-add /tmp/scaleway_rsa
+
 install:
   - bundle install
-  - sudo pip install awscli
 
 script:
-  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER bundle exec make ec2_test
+  - bundle exec make scaleway_test
 
 after_script:
-  - AWS_SSH_KEY_ID=$AWS_SSH_KEY_ID-$TRAVIS_JOB_NUMBER bundle exec make ec2_destroy
+  - bundle exec make scaleway_destroy
 
 env:
   matrix:
-    - KITCHEN_INSTANCE=ubuntu-1204
-    - KITCHEN_INSTANCE=ubuntu-1404
+  - KITCHEN_INSTANCE=ubuntu-1204
+  - KITCHEN_INSTANCE=ubuntu-1404
